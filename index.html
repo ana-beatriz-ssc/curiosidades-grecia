@@ -143,22 +143,51 @@
 
   /* ---------- QUIZ ---------- */
   .quiz{background:var(--white);border-top:1px solid #eee5cf;border-bottom:1px solid #eee5cf}
-  .quiz-grid{display:grid;gap:14px;max-width:760px;margin:0 auto}
-  .q{
-    background:var(--paper);border:2px solid #e6dcc0;border-radius:16px;padding:16px 18px;
+  .panel{
+    max-width:620px;margin:0 auto;background:var(--paper);border:2px solid #e6dcc0;
+    border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow);
   }
-  .q p{font-weight:700;margin-bottom:12px}
-  .q .opts{display:flex;gap:10px;flex-wrap:wrap}
-  .q button{
-    flex:1;min-width:120px;padding:10px;border-radius:12px;border:2px solid var(--blue);
-    background:var(--white);color:var(--blue);font:800 .95rem "Nunito",sans-serif;cursor:pointer;
+  .panel[hidden]{display:none}
+  .field label{display:block;font-weight:800;color:var(--navy);margin-bottom:8px}
+  .field input{
+    width:100%;padding:14px 16px;border-radius:12px;border:2px solid #c8d2e6;
+    font:600 1.05rem "Nunito",sans-serif;color:var(--ink);background:var(--white);
   }
-  .q button:disabled{cursor:default}
-  .q button.right{background:#1f8a4c;border-color:#1f8a4c;color:#fff}
-  .q button.wrong{background:#b8423a;border-color:#b8423a;color:#fff}
-  .q .feedback{margin-top:10px;font-size:.92rem;color:var(--muted);display:none}
-  .q.done .feedback{display:block}
-  .score{text-align:center;margin-top:20px;font-weight:800;color:var(--navy);font-size:1.1rem}
+  .field input:focus{outline:none;border-color:var(--blue)}
+  .error{color:#b8423a;font-weight:700;font-size:.9rem;margin-top:8px;min-height:1.2em}
+  .btn-main{
+    width:100%;margin-top:16px;padding:14px;border:0;border-radius:999px;cursor:pointer;
+    background:var(--navy);color:var(--gold-light);font:800 1.05rem "Nunito",sans-serif;
+  }
+  .btn-main:hover{background:var(--blue)}
+  .btn-main[hidden]{display:none}
+  .q-top{display:flex;justify-content:space-between;font-weight:800;color:var(--muted);font-size:.9rem}
+  .q-top .pts{color:var(--gold-dark)}
+  .progress{height:8px;background:#e3e8f2;border-radius:999px;margin:10px 0 18px;overflow:hidden}
+  .progress div{height:100%;background:var(--gold);width:0;transition:width .4s}
+  .q-text{font-weight:800;font-size:1.2rem;color:var(--navy);margin-bottom:16px}
+  .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .opts button{
+    flex:1;min-width:130px;padding:14px;border-radius:14px;border:2px solid var(--blue);
+    background:var(--white);color:var(--blue);font:800 1rem "Nunito",sans-serif;cursor:pointer;
+  }
+  .opts button:disabled{cursor:default}
+  .opts button.right{background:#1f8a4c;border-color:#1f8a4c;color:#fff}
+  .opts button.wrong{background:#b8423a;border-color:#b8423a;color:#fff}
+  .feedback{margin-top:14px;font-size:.98rem;min-height:1.5em}
+  .result{text-align:center}
+  .result .who{font-weight:800;color:var(--muted)}
+  .big{
+    width:clamp(170px,50vw,220px);aspect-ratio:1;border-radius:50%;margin:16px auto;
+    background:radial-gradient(circle at 30% 30%,#24468f,var(--navy));
+    border:6px solid var(--gold);box-shadow:0 0 0 6px var(--gold-light),var(--shadow);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);
+  }
+  .big strong{font-family:"Cinzel",serif;font-size:clamp(3.5rem,16vw,5rem);line-height:1;color:var(--gold-light)}
+  .big span{font-weight:800;font-size:1rem}
+  .result h3{color:var(--navy);font-size:1.5rem;margin-bottom:6px}
+  .save{margin-top:12px;font-size:.9rem;font-weight:700}
+  .save.ok{color:#1f8a4c}.save.fail{color:#b8423a}.save.wait{color:var(--muted)}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--navy);color:#d6def0;text-align:center;padding:0 16px 32px}
@@ -328,9 +357,44 @@
   <section class="quiz" id="quiz">
     <div class="wrap">
       <h2 class="section-title">Verdadeiro ou falso?</h2>
-      <p class="section-sub">Teste o que você aprendeu. Toque na sua resposta!</p>
-      <div class="quiz-grid" id="quizGrid"></div>
-      <p class="score" id="score"></p>
+      <p class="section-sub">Teste o que você aprendeu! Cada pessoa joga sua própria rodada e o resultado é registrado.</p>
+
+      <!-- Início -->
+      <form class="panel" id="qStart" autocomplete="off">
+        <div class="field">
+          <label for="playerName">Seu nome</label>
+          <input id="playerName" maxlength="40" placeholder="Ex.: Maria Silva" required>
+        </div>
+        <p class="error" id="nameError"></p>
+        <button class="btn-main" type="submit">Começar o quiz →</button>
+      </form>
+
+      <!-- Perguntas -->
+      <div class="panel" id="qPlay" hidden>
+        <div class="q-top"><span id="qCount">Pergunta 1 de 6</span><span class="pts" id="qPts">Acertos: 0</span></div>
+        <div class="progress"><div id="qBar"></div></div>
+        <p class="q-text" id="qText"></p>
+        <div class="opts">
+          <button type="button" data-v="true">Verdadeiro</button>
+          <button type="button" data-v="false">Falso</button>
+        </div>
+        <p class="feedback" id="qFeedback" role="status"></p>
+        <button class="btn-main" type="button" id="qNext" hidden>Próxima →</button>
+      </div>
+
+      <!-- Resultado -->
+      <div class="panel result" id="qEnd" hidden>
+        <p class="who" id="rName"></p>
+        <div class="big" aria-live="polite">
+          <strong id="rScore">0</strong>
+          <span id="rTotal">de 6 acertos</span>
+        </div>
+        <h3 id="rMsg"></h3>
+        <p id="rSub"></p>
+        <p class="save wait" id="rSave"></p>
+        <button class="btn-main" type="button" id="qRetrySave" hidden>Tentar registrar de novo</button>
+        <button class="btn-main" type="button" id="qNew">Novo participante</button>
+      </div>
     </div>
   </section>
 </main>
@@ -339,8 +403,10 @@
   <div class="meander" aria-hidden="true"></div>
   <strong>Colégio Integrado Santo André</strong>
   Trabalho apresentado pelos alunos do 9º ano · Tarde
+  <p style="margin-top:14px;font-size:.8rem"><a href="admin.html" style="color:#9fb0d3">Área dos administradores</a></p>
 </footer>
 
+<script src="config.js"></script>
 <script>
 (() => {
   /* ----- Carousel ----- */
@@ -392,6 +458,7 @@
   prev.addEventListener('click', () => goTo(current - 1));
   next.addEventListener('click', () => goTo(current + 1));
   document.addEventListener('keydown', e => {
+    if (e.target.closest('input, #quiz')) return;
     if (e.target.closest('button') && !e.target.closest('.controls')) return;
     if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
     if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
@@ -427,37 +494,97 @@
     { q: 'As casas de Santorini são brancas só por causa da beleza.', a: false,
       f: 'Falso! O branco reflete a luz do sol e deixa as casas menos quentes.' }
   ];
-  const grid = document.getElementById('quizGrid');
-  const scoreEl = document.getElementById('score');
-  let answered = 0, right = 0;
+  const $ = id => document.getElementById(id);
+  const total = questions.length;
+  const optBtns = [...document.querySelectorAll('#qPlay .opts button')];
+  let player = '', idx = 0, hits = 0, lastResult = null;
 
-  questions.forEach((item, idx) => {
-    const box = document.createElement('div');
-    box.className = 'q';
-    box.innerHTML = `<p>${idx + 1}. ${item.q}</p>
-      <div class="opts">
-        <button type="button" data-v="true">Verdadeiro</button>
-        <button type="button" data-v="false">Falso</button>
-      </div>
-      <div class="feedback" role="status"></div>`;
-    const btns = box.querySelectorAll('button');
-    btns.forEach(b => b.addEventListener('click', () => {
-      const chosen = b.dataset.v === 'true';
-      const ok = chosen === item.a;
-      btns.forEach(x => {
-        x.disabled = true;
-        if ((x.dataset.v === 'true') === item.a) x.classList.add('right');
-        else if (x === b) x.classList.add('wrong');
+  function show(id) {
+    ['qStart', 'qPlay', 'qEnd'].forEach(p => $(p).hidden = p !== id);
+    $('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  $('qStart').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('playerName').value.trim().replace(/\s+/g, ' ');
+    if (name.length < 2) { $('nameError').textContent = 'Digite seu nome para começar.'; return; }
+    $('nameError').textContent = '';
+    player = name; idx = 0; hits = 0;
+    show('qPlay'); renderQuestion();
+  });
+
+  function renderQuestion() {
+    const item = questions[idx];
+    $('qCount').textContent = `Pergunta ${idx + 1} de ${total}`;
+    $('qPts').textContent = `Acertos: ${hits}`;
+    $('qBar').style.width = (idx / total * 100) + '%';
+    $('qText').textContent = item.q;
+    $('qFeedback').textContent = '';
+    $('qNext').hidden = true;
+    optBtns.forEach(b => { b.disabled = false; b.classList.remove('right', 'wrong'); });
+  }
+
+  optBtns.forEach(b => b.addEventListener('click', () => {
+    const item = questions[idx];
+    const ok = (b.dataset.v === 'true') === item.a;
+    if (ok) hits++;
+    optBtns.forEach(x => {
+      x.disabled = true;
+      if ((x.dataset.v === 'true') === item.a) x.classList.add('right');
+      else if (x === b) x.classList.add('wrong');
+    });
+    $('qFeedback').textContent = (ok ? '✔ Acertou! ' : '✘ Quase! ') + item.f;
+    $('qPts').textContent = `Acertos: ${hits}`;
+    $('qBar').style.width = ((idx + 1) / total * 100) + '%';
+    $('qNext').textContent = idx === total - 1 ? 'Ver meu resultado →' : 'Próxima →';
+    $('qNext').hidden = false;
+    $('qNext').focus();
+  }));
+
+  $('qNext').addEventListener('click', () => {
+    idx++;
+    if (idx < total) renderQuestion(); else finish();
+  });
+
+  function finish() {
+    $('rName').textContent = player;
+    $('rScore').textContent = hits;
+    $('rTotal').textContent = `de ${total} acerto${total > 1 ? 's' : ''}`;
+    const pct = hits / total;
+    $('rMsg').textContent = pct === 1 ? '🏛️ Digno de um sábio grego!'
+      : pct >= .67 ? '⭐ Mandou muito bem!'
+      : pct >= .34 ? '👍 Bom trabalho!' : '📜 Vale revisar as curiosidades!';
+    $('rSub').textContent = `Você acertou ${hits} de ${total} perguntas.`;
+    show('qEnd');
+    lastResult = { nome: player, acertos: hits, total };
+    saveResult();
+  }
+
+  async function saveResult() {
+    const s = $('rSave');
+    $('qRetrySave').hidden = true;
+    if (!window.QUIZ_API_URL) { s.className = 'save fail'; s.textContent = 'Registro de resultados ainda não configurado.'; return; }
+    s.className = 'save wait'; s.textContent = 'Registrando resultado…';
+    try {
+      const res = await fetch(window.QUIZ_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(lastResult)
       });
-      box.querySelector('.feedback').textContent = (ok ? '✔ Acertou! ' : '✘ Quase! ') + item.f;
-      box.classList.add('done');
-      answered++; if (ok) right++;
-      if (answered === questions.length) {
-        scoreEl.textContent = `Você acertou ${right} de ${questions.length}! ` +
-          (right === questions.length ? '🏛️ Digno de um sábio grego!' : 'Releia as curiosidades para revisar.');
-      }
-    }));
-    grid.appendChild(box);
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.erro || 'erro');
+      s.className = 'save ok'; s.textContent = '✔ Resultado registrado!';
+    } catch (err) {
+      s.className = 'save fail'; s.textContent = 'Não foi possível registrar. Verifique a internet.';
+      $('qRetrySave').hidden = false;
+    }
+  }
+  $('qRetrySave').addEventListener('click', saveResult);
+
+  $('qNew').addEventListener('click', () => {
+    $('playerName').value = '';
+    show('qStart');
+    $('playerName').focus();
   });
 })();
 </script>
