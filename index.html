@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curiosidades da Grécia</title>
+<meta name="description" content="Curiosidades da Grécia apresentadas pelos alunos do 9º ano – Tarde.">
+<link rel="icon" href="img/logo-colegio.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2350;
+    --blue:#1d4fa3;
+    --sky:#e8f0fb;
+    --gold:#c9a24a;
+    --gold-light:#f3e6c2;
+    --gold-dark:#9a7726;
+    --white:#ffffff;
+    --paper:#fbfaf6;
+    --ink:#1b2440;
+    --muted:#55607a;
+    --radius:20px;
+    --shadow:0 10px 30px rgba(15,35,80,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Nunito",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  h1,h2,h3{font-family:"Cinzel",Georgia,serif;line-height:1.2}
+
+  /* Greek key border */
+  .meander{
+    height:18px;width:100%;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18'%3E%3Cpath d='M0 17h6V5h12v8h-6V9' fill='none' stroke='%23c9a24a' stroke-width='2'/%3E%3Cpath d='M18 17h6V5h12' fill='none' stroke='%23c9a24a' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;background-size:36px 18px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:radial-gradient(ellipse at top,#1d3a78 0%,var(--navy) 65%);
+    color:var(--white);text-align:center;
+    padding:40px 16px 56px;position:relative;
+  }
+  .hero .logo{
+    width:clamp(130px,32vw,190px);aspect-ratio:1;border-radius:50%;
+    margin:0 auto 22px;box-shadow:0 0 0 4px var(--gold),0 12px 40px rgba(0,0,0,.4);
+    object-fit:cover;
+  }
+  .tag{
+    display:inline-block;background:var(--gold);color:var(--navy);
+    font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    padding:6px 14px;border-radius:999px;margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(2rem,7vw,3.6rem);color:var(--gold-light);letter-spacing:.03em}
+  .hero h1 span{display:block;font-size:.45em;color:var(--white);letter-spacing:.3em;margin-bottom:6px}
+  .hero p{max-width:560px;margin:16px auto 0;color:#d6def0;font-size:1.05rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;margin-top:28px;
+    background:var(--gold);color:var(--navy);font-weight:800;text-decoration:none;
+    padding:14px 26px;border-radius:999px;box-shadow:0 6px 18px rgba(201,162,74,.4);
+    transition:transform .2s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .hero .meander{position:absolute;left:0;bottom:12px;opacity:.8}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:48px 0}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+  .section-title{text-align:center;margin-bottom:8px;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--navy)}
+  .section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 28px}
+
+  /* ---------- CAROUSEL ---------- */
+  .carousel-wrap{position:relative;max-width:1100px;margin:0 auto}
+  .carousel{
+    display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 16px 24px;scroll-padding:0 16px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+  }
+  .carousel::-webkit-scrollbar{display:none}
+  .card{
+    flex:0 0 88%;scroll-snap-align:center;scroll-snap-stop:always;
+    background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+    overflow:hidden;display:flex;flex-direction:column;
+    border-top:5px solid var(--gold);
+  }
+  .media{position:relative;aspect-ratio:4/3;background:var(--sky);overflow:hidden}
+  .media img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+  .media img.hidden{opacity:0;position:absolute;inset:0}
+  .num{
+    position:absolute;top:12px;left:12px;
+    background:var(--navy);color:var(--gold-light);
+    font-family:"Cinzel",serif;font-weight:700;
+    width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+    border:2px solid var(--gold);font-size:1.1rem;
+  }
+  .switch{
+    position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+    display:flex;gap:4px;background:rgba(15,35,80,.8);padding:4px;border-radius:999px;
+  }
+  .switch button{
+    border:0;background:transparent;color:var(--white);font:700 .8rem "Nunito",sans-serif;
+    padding:6px 12px;border-radius:999px;cursor:pointer;
+  }
+  .switch button[aria-pressed="true"]{background:var(--gold);color:var(--navy)}
+  .caption{font-size:.8rem;color:var(--muted);padding:8px 18px 0;font-style:italic}
+  .body{padding:14px 18px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .card h3{font-size:clamp(1.15rem,4.5vw,1.5rem);color:var(--navy)}
+  .card p{font-size:1rem}
+  .box{
+    background:var(--sky);border-left:4px solid var(--blue);
+    border-radius:10px;padding:10px 14px;font-size:.92rem;
+  }
+  .box strong{color:var(--blue)}
+  .box.gold{background:var(--gold-light);border-left-color:var(--gold-dark)}
+  .box.gold strong{color:var(--gold-dark)}
+
+  .controls{display:flex;align-items:center;justify-content:center;gap:16px;padding:0 16px}
+  .arrow{
+    width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);
+    background:var(--white);color:var(--navy);font-size:1.3rem;cursor:pointer;
+    display:grid;place-items:center;transition:background .2s;
+  }
+  .arrow:hover:not(:disabled){background:var(--gold-light)}
+  .arrow:disabled{opacity:.35;cursor:default}
+  .dots{display:flex;gap:8px}
+  .dots button{
+    width:10px;height:10px;border-radius:999px;border:0;background:#c8d2e6;cursor:pointer;
+    transition:width .3s,background .3s;padding:0;
+  }
+  .dots button.active{width:28px;background:var(--gold)}
+  .counter{text-align:center;color:var(--muted);font-weight:700;margin-top:10px;font-size:.9rem}
+
+  .hint{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    color:var(--blue);font-weight:700;margin-bottom:12px;transition:opacity .4s;
+  }
+  .hint .hand{display:inline-block;animation:swipe 1.6s ease-in-out infinite;font-size:1.4rem}
+  @keyframes swipe{0%,100%{transform:translateX(10px)}50%{transform:translateX(-10px)}}
+  .hint.gone{opacity:0}
+  .hint-desktop{display:none}
+
+  /* ---------- QUIZ ---------- */
+  .quiz{background:var(--white);border-top:1px solid #eee5cf;border-bottom:1px solid #eee5cf}
+  .quiz-grid{display:grid;gap:14px;max-width:760px;margin:0 auto}
+  .q{
+    background:var(--paper);border:2px solid #e6dcc0;border-radius:16px;padding:16px 18px;
+  }
+  .q p{font-weight:700;margin-bottom:12px}
+  .q .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .q button{
+    flex:1;min-width:120px;padding:10px;border-radius:12px;border:2px solid var(--blue);
+    background:var(--white);color:var(--blue);font:800 .95rem "Nunito",sans-serif;cursor:pointer;
+  }
+  .q button:disabled{cursor:default}
+  .q button.right{background:#1f8a4c;border-color:#1f8a4c;color:#fff}
+  .q button.wrong{background:#b8423a;border-color:#b8423a;color:#fff}
+  .q .feedback{margin-top:10px;font-size:.92rem;color:var(--muted);display:none}
+  .q.done .feedback{display:block}
+  .score{text-align:center;margin-top:20px;font-weight:800;color:var(--navy);font-size:1.1rem}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy);color:#d6def0;text-align:center;padding:0 16px 32px}
+  footer .meander{margin-bottom:24px}
+  footer strong{color:var(--gold-light);font-family:"Cinzel",serif;font-size:1.1rem;display:block;margin-bottom:6px}
+
+  /* ---------- TABLET / DESKTOP ---------- */
+  @media (min-width:720px){
+    .card{flex-basis:70%}
+  }
+  @media (min-width:960px){
+    .carousel{padding:8px 0 28px;scroll-padding:0}
+    .carousel-wrap{padding:0 16px}
+    .card{flex:0 0 100%;flex-direction:row;border-top:0;border-left:6px solid var(--gold);min-height:440px}
+    .card .left{flex:0 0 50%;display:flex;flex-direction:column}
+    .media{aspect-ratio:auto;flex:1}
+    .caption{padding:8px 18px 12px}
+    .body{padding:36px 40px;justify-content:center}
+    .card p{font-size:1.08rem}
+    .hint-mobile{display:none}
+    .hint-desktop{display:inline}
+    .hint .hand{animation:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .hint .hand{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="logo" src="img/logo-colegio.jpeg" alt="Brasão do Colégio Integrado Santo André">
+  <div class="tag">9º ano · Tarde</div>
+  <h1><span>Curiosidades da</span>Grécia</h1>
+  <p>Estátuas coloridas, festas secretas, teatro e ilhas azuis e brancas: descubra fatos surpreendentes sobre a Grécia Antiga e a Grécia de hoje.</p>
+  <a class="btn" href="#curiosidades">Começar a explorar ↓</a>
+  <div class="meander" aria-hidden="true"></div>
+</header>
+
+<main>
+  <section id="curiosidades">
+    <h2 class="section-title">6 curiosidades</h2>
+    <p class="section-sub">Cada cartão traz uma curiosidade, uma imagem e um quadro para aprender um pouco mais.</p>
+
+    <div class="hint" id="hint">
+      <span class="hand" aria-hidden="true">👆</span>
+      <span class="hint-mobile">Deslize para o lado para ver a próxima</span>
+      <span class="hint-desktop">Use as setas (ou o teclado ← →) para navegar</span>
+    </div>
+
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel" tabindex="0" aria-label="Curiosidades da Grécia">
+
+        <!-- 1 -->
+        <article class="card" aria-label="Curiosidade 1 de 6">
+          <div class="left">
+            <div class="media" data-switch>
+              <img src="img/estatua-atena.jpeg" alt="Estátua de Atena em mármore branco ao lado de uma reconstituição colorida em vermelho, azul e dourado">
+              <img class="hidden" src="img/estatua-tique.jpeg" alt="Estátua da deusa Tique em mármore ao lado de uma versão pintada em roxo e dourado" loading="lazy">
+              <span class="num">I</span>
+              <div class="switch" role="group" aria-label="Escolher imagem">
+                <button type="button" aria-pressed="true">Atena</button>
+                <button type="button" aria-pressed="false">Tique</button>
+              </div>
+            </div>
+            <p class="caption" data-captions='["Atena Partenos: cópia em mármore (esq.) e reconstituição com as cores originais (dir.).","Tique, deusa da sorte: mármore como está hoje (esq.) e como provavelmente era pintada (dir.)."]'>Atena Partenos: cópia em mármore (esq.) e reconstituição com as cores originais (dir.).</p>
+          </div>
+          <div class="body">
+            <h3>As estátuas gregas não eram brancas</h3>
+            <p>Muitas esculturas que hoje vemos brancas eram, na verdade, pintadas com <strong>cores vibrantes</strong>: roupas vermelhas, cabelos ruivos, detalhes em dourado. Com o passar dos séculos, a pintura se desgastou e só o mármore ficou.</p>
+            <div class="box"><strong>Palavra-chave: policromia.</strong> Significa “muitas cores”. Pesquisadores usam luz ultravioleta para encontrar restos de tinta nas estátuas.</div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="card" aria-label="Curiosidade 2 de 6">
+          <div class="left">
+            <div class="media">
+              <img src="img/tesmoforias.jpeg" alt="Pintura de mulheres com túnicas brancas levando cestos de frutas e trigo até um altar" loading="lazy">
+              <span class="num">II</span>
+            </div>
+            <p class="caption">Representação artística de mulheres em uma celebração religiosa.</p>
+          </div>
+          <div class="body">
+            <h3>Festas religiosas só para mulheres</h3>
+            <p>Na celebração chamada <strong>Tesmofórias</strong>, as mulheres participavam de rituais em homenagem às deusas <strong>Deméter</strong> e <strong>Perséfone</strong>, sem a presença dos homens.</p>
+            <div class="box"><strong>Para entender:</strong> Deméter era a deusa da agricultura e das colheitas, e Perséfone era sua filha. Por isso a festa pedia boas colheitas e fertilidade da terra.</div>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="card" aria-label="Curiosidade 3 de 6">
+          <div class="left">
+            <div class="media">
+              <img src="img/olimpia-chama.jpeg" alt="Mulheres vestidas de sacerdotisas gregas acendendo a tocha olímpica entre ruínas" loading="lazy">
+              <span class="num">III</span>
+            </div>
+            <p class="caption">Cerimônia moderna de acendimento da chama olímpica, nas ruínas de Olímpia.</p>
+          </div>
+          <div class="body">
+            <h3>Mulheres fora dos Jogos Olímpicos</h3>
+            <p>Na Grécia Antiga, as mulheres eram <strong>proibidas de competir</strong> nos Jogos Olímpicos tradicionais. Em certos casos, também não podiam nem <strong>assistir</strong> às competições masculinas.</p>
+            <div class="box gold"><strong>Hoje é diferente!</strong> A chama de cada Olimpíada é acesa em Olímpia, na Grécia, por mulheres vestidas como sacerdotisas, como mostra a foto.</div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="card" aria-label="Curiosidade 4 de 6">
+          <div class="left">
+            <div class="media">
+              <img src="img/teatro-dionisio.jpeg" alt="Ilustração de um grande teatro grego ao ar livre com plateia em arquibancadas e atores no palco" loading="lazy">
+              <span class="num">IV</span>
+            </div>
+            <p class="caption">Ilustração de um teatro grego ao ar livre, com a plateia em arquibancadas.</p>
+          </div>
+          <div class="body">
+            <h3>O teatro nasceu de festas religiosas</h3>
+            <p>As apresentações teatrais gregas surgiram nas celebrações dedicadas a <strong>Dionísio</strong>, deus do vinho, das festas e do teatro.</p>
+            <div class="box"><strong>Você sabia?</strong> Os gregos criaram dois gêneros que existem até hoje: a <strong>tragédia</strong> e a <strong>comédia</strong>. Os atores usavam máscaras para representar os personagens.</div>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="card" aria-label="Curiosidade 5 de 6">
+          <div class="left">
+            <div class="media">
+              <img src="img/cariatides-acropole.jpeg" alt="Colunas em forma de mulheres, as Cariátides, em um templo na Acrópole com a cidade de Atenas ao fundo" loading="lazy">
+              <span class="num">V</span>
+            </div>
+            <p class="caption">As Cariátides do templo Erecteion, na Acrópole de Atenas.</p>
+          </div>
+          <div class="body">
+            <h3>Os gregos não chamavam seu país de Grécia</h3>
+            <p>Eles usavam o nome <strong>Hélade</strong> (<em>Hellas</em>) para o território grego e chamavam a si mesmos de <strong>helenos</strong>.</p>
+            <div class="box gold"><strong>De onde vem “Grécia”?</strong> Do latim <em>Graecia</em>, nome dado pelos romanos. Até hoje o nome oficial do país é <strong>República Helênica</strong>.</div>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="card" aria-label="Curiosidade 6 de 6">
+          <div class="left">
+            <div class="media">
+              <img src="img/santorini.jpeg" alt="Casas brancas e igrejas com cúpulas azuis na ilha de Santorini, de frente para o mar" loading="lazy">
+              <span class="num">VI</span>
+            </div>
+            <p class="caption">Casas brancas e cúpulas azuis na ilha de Santorini.</p>
+          </div>
+          <div class="body">
+            <h3>As casas brancas de Santorini têm um motivo</h3>
+            <p>A pintura branca <strong>reflete a luz do sol</strong> e ajuda a deixar as casas menos quentes. Com o tempo, o visual azul e branco virou a <strong>marca turística</strong> da ilha.</p>
+            <div class="box"><strong>Ciência no dia a dia:</strong> cores claras refletem mais luz e calor; cores escuras absorvem mais. É por isso que roupa preta esquenta mais no sol!</div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="controls">
+        <button class="arrow" id="prev" type="button" aria-label="Curiosidade anterior">←</button>
+        <div class="dots" id="dots"></div>
+        <button class="arrow" id="next" type="button" aria-label="Próxima curiosidade">→</button>
+      </div>
+      <p class="counter" id="counter" aria-live="polite">1 de 6</p>
+    </div>
+  </section>
+
+  <section class="quiz" id="quiz">
+    <div class="wrap">
+      <h2 class="section-title">Verdadeiro ou falso?</h2>
+      <p class="section-sub">Teste o que você aprendeu. Toque na sua resposta!</p>
+      <div class="quiz-grid" id="quizGrid"></div>
+      <p class="score" id="score"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="meander" aria-hidden="true"></div>
+  <strong>Colégio Integrado Santo André</strong>
+  Trabalho apresentado pelos alunos do 9º ano · Tarde
+</footer>
+
+<script>
+(() => {
+  /* ----- Carousel ----- */
+  const track = document.getElementById('carousel');
+  const cards = [...track.querySelectorAll('.card')];
+  const dotsEl = document.getElementById('dots');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const counter = document.getElementById('counter');
+  const hint = document.getElementById('hint');
+  let current = 0;
+
+  cards.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Ir para a curiosidade ' + (i + 1));
+    b.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(b);
+  });
+  const dots = [...dotsEl.children];
+
+  function goTo(i) {
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    const card = cards[i];
+    const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+    track.scrollTo({ left, behavior: 'smooth' });
+  }
+
+  function update() {
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let best = 0, bestDist = Infinity;
+    cards.forEach((c, i) => {
+      const d = Math.abs(c.offsetLeft + c.clientWidth / 2 - center);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    current = best;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    prev.disabled = current === 0;
+    next.disabled = current === cards.length - 1;
+    counter.textContent = (current + 1) + ' de ' + cards.length;
+  }
+
+  let ticking = false;
+  track.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+    if (track.scrollLeft > 30) hint.classList.add('gone');
+  }, { passive: true });
+
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('button') && !e.target.closest('.controls')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+  });
+  window.addEventListener('resize', () => goTo(current));
+  update();
+
+  /* ----- Image switch (card 1) ----- */
+  document.querySelectorAll('[data-switch]').forEach(media => {
+    const imgs = media.querySelectorAll('img');
+    const btns = media.querySelectorAll('.switch button');
+    const cap = media.parentElement.querySelector('.caption');
+    const caps = JSON.parse(cap.dataset.captions);
+    btns.forEach((b, i) => b.addEventListener('click', () => {
+      imgs.forEach((im, j) => im.classList.toggle('hidden', j !== i));
+      btns.forEach((bb, j) => bb.setAttribute('aria-pressed', j === i));
+      cap.textContent = caps[i];
+    }));
+  });
+
+  /* ----- Quiz ----- */
+  const questions = [
+    { q: 'As estátuas gregas sempre foram brancas.', a: false,
+      f: 'Falso! Elas eram pintadas com cores vibrantes, que se apagaram com o tempo.' },
+    { q: 'As Tesmofórias eram festas em homenagem a Deméter e Perséfone.', a: true,
+      f: 'Verdadeiro! E só as mulheres podiam participar.' },
+    { q: 'Na Grécia Antiga, as mulheres competiam nos Jogos Olímpicos.', a: false,
+      f: 'Falso! Elas eram proibidas de competir nos Jogos tradicionais.' },
+    { q: 'O teatro grego surgiu em festas para o deus Dionísio.', a: true,
+      f: 'Verdadeiro! Dionísio era o deus do vinho, das festas e do teatro.' },
+    { q: 'Os gregos antigos chamavam seu país de Hélade.', a: true,
+      f: 'Verdadeiro! E chamavam a si mesmos de helenos.' },
+    { q: 'As casas de Santorini são brancas só por causa da beleza.', a: false,
+      f: 'Falso! O branco reflete a luz do sol e deixa as casas menos quentes.' }
+  ];
+  const grid = document.getElementById('quizGrid');
+  const scoreEl = document.getElementById('score');
+  let answered = 0, right = 0;
+
+  questions.forEach((item, idx) => {
+    const box = document.createElement('div');
+    box.className = 'q';
+    box.innerHTML = `<p>${idx + 1}. ${item.q}</p>
+      <div class="opts">
+        <button type="button" data-v="true">Verdadeiro</button>
+        <button type="button" data-v="false">Falso</button>
+      </div>
+      <div class="feedback" role="status"></div>`;
+    const btns = box.querySelectorAll('button');
+    btns.forEach(b => b.addEventListener('click', () => {
+      const chosen = b.dataset.v === 'true';
+      const ok = chosen === item.a;
+      btns.forEach(x => {
+        x.disabled = true;
+        if ((x.dataset.v === 'true') === item.a) x.classList.add('right');
+        else if (x === b) x.classList.add('wrong');
+      });
+      box.querySelector('.feedback').textContent = (ok ? '✔ Acertou! ' : '✘ Quase! ') + item.f;
+      box.classList.add('done');
+      answered++; if (ok) right++;
+      if (answered === questions.length) {
+        scoreEl.textContent = `Você acertou ${right} de ${questions.length}! ` +
+          (right === questions.length ? '🏛️ Digno de um sábio grego!' : 'Releia as curiosidades para revisar.');
+      }
+    }));
+    grid.appendChild(box);
+  });
+})();
+</script>
+</body>
+</html>
